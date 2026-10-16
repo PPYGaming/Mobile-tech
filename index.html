@@ -278,6 +278,15 @@
         </span>
         <span class="icon">➡️</span>
       </button>
+
+      <button class="card-link" onclick="showPage('faults')">
+        <span class="icon">⚡</span>
+        <span class="label">
+          <span class="title">Faults</span>
+          <span class="code">Short &amp; other mobile problems</span>
+        </span>
+        <span class="icon">➡️</span>
+      </button>
     </div>
 
     <footer>
@@ -552,6 +561,142 @@
             </div>
 
           </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Made with 💚 for Mobile Tech
+    </footer>
+  </div>
+
+  <!-- ================= FAULTS PAGE ================= -->
+  <div class="page" id="page-faults">
+    <header>
+      <button class="back" onclick="showPage('home')">⬅ Home</button>
+      <h1>⚡ Faults</h1>
+      <p>Common problems that occur in mobiles</p>
+    </header>
+
+    <div class="container">
+      <div class="category" style="margin-top:0;">
+        <div class="body-pad">
+
+          <button class="card-link" onclick="showPage('short')">
+            <span class="icon">🔌</span>
+            <span class="label">
+              <span class="title">Short</span>
+              <span class="code">Primary short &amp; Secondary short</span>
+            </span>
+            <span class="icon">➡️</span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Made with 💚 for Mobile Tech
+    </footer>
+  </div>
+
+  <!-- ================= SHORT PAGE ================= -->
+  <div class="page" id="page-short">
+    <header>
+      <button class="back" onclick="showPage('faults')">⬅ Faults</button>
+      <h1>🔌 Short</h1>
+      <p>Board short circuit — types, symptoms &amp; checking</p>
+    </header>
+
+    <div class="container">
+      <div class="category" style="margin-top:0;">
+        <div class="body-pad">
+          <div class="note" style="margin-top:0;">
+            <b>⚡ Why does a short happen?</b><br>
+            • <b>💧 Water damage:</b> Water inside the phone can corrode the board and create a short. Check the board carefully for any water damage or corrosion marks<br>
+            • <b>🔥 Over-voltage:</b> Higher-than-normal voltage can burn components and cause a short — even a wrong/incorrect battery (wrong current/voltage) can do this. Slight burn/fire marks on the charging (CC) board or battery connector point to a short<br>
+            • <b>🖤 Burnt component:</b> A burnt/charred part on the board can itself be the short — a burnt charging pin, or a condenser (capacitor) burnt from heavy use/overload. Check the area for any charred or blackened parts
+          </div>
+
+          <div class="parts-grid">
+
+            <!-- PRIMARY SHORT -->
+            <div class="part-card">
+              <div class="part-icon">
+                <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="16" y="18" width="58" height="24" rx="4" fill="#0e1720" stroke="#39ff88" stroke-width="2"/>
+                  <rect x="76" y="25" width="8" height="10" rx="2" fill="#39ff88"/>
+                  <polygon points="48,20 38,32 46,32 42,44 56,28 47,28" fill="#ff5470"/>
+                </svg>
+              </div>
+              <div class="part-info">
+                <div class="part-name">🔋 Primary Short</div>
+                <div class="part-desc">A short circuit on the main battery line (VBAT) — the battery supply touches ground before the power IC. The phone goes fully dead: nothing works at all — no display, no vibration, no charging sign.</div>
+                <div class="part-use"><strong>Symptoms:</strong> Completely dead phone. On a DC power supply, current (ampere) flows immediately when the battery is connected, even without pressing the power button.</div>
+                <div class="part-tamil"><b>🔎 How to check (multimeter):</b><br>
+                  • <b>Setup:</b> Disconnect the battery and set the multimeter to continuity (buzzer) mode<br>
+                  • <b>Test:</b> Black probe on board ground (GND), red probe on the battery connector +ve pin<br>
+                  • <b>Result:</b> A beep (0 ohm / near 0) means there is a primary short on the VBAT line<br>
+                  • <b>Confirm:</b> Reverse the probes and test again — a beep in both directions confirms the short<br>
+                  • <b>Inject:</b> Give 4V on the battery (VBAT) line with the battery disconnected — the shorted component heats up
+                </div>
+              </div>
+            </div>
+
+            <!-- SECONDARY SHORT -->
+            <div class="part-card">
+              <div class="part-icon">
+                <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="28" y="14" width="44" height="32" rx="3" fill="#0e1720" stroke="#3ad1ff" stroke-width="2"/>
+                  <line x1="28" y1="22" x2="18" y2="22" stroke="#9fb3c8" stroke-width="2"/>
+                  <line x1="28" y1="30" x2="18" y2="30" stroke="#9fb3c8" stroke-width="2"/>
+                  <line x1="28" y1="38" x2="18" y2="38" stroke="#9fb3c8" stroke-width="2"/>
+                  <line x1="72" y1="22" x2="82" y2="22" stroke="#9fb3c8" stroke-width="2"/>
+                  <line x1="72" y1="30" x2="82" y2="30" stroke="#9fb3c8" stroke-width="2"/>
+                  <line x1="72" y1="38" x2="82" y2="38" stroke="#9fb3c8" stroke-width="2"/>
+                  <polygon points="52,18 42,30 49,30 45,42 58,27 50,27" fill="#ff5470"/>
+                </svg>
+              </div>
+              <div class="part-info">
+                <div class="part-name">🔄 Secondary Short</div>
+                <div class="part-desc">A short circuit on a voltage line after the power IC (PMIC output lines feeding the CPU, memory &amp; other sections). The phone turns on, the model name/logo appears, but it keeps restarting — it switches off and on again and again, and never reaches the home screen.</div>
+                <div class="part-use"><strong>Symptoms:</strong> Restart loop — logo shows, then the phone restarts repeatedly. On a DC supply, current jumps high as soon as the power button is pressed. The PMIC or CPU area can heat up.</div>
+                <div class="part-tamil"><b>🔎 How to check:</b><br>
+                  • <b>Step 1:</b> First confirm there is no short at the battery connector (rule out a primary short)<br>
+                  • <b>Step 2:</b> Check the coils (inductors) near the PMIC in diode mode — each one is an output line<br>
+                  • <b>Result:</b> If any line reads 0 / beeps, there is a secondary short on that output line<br>
+                  • <b>Inject:</b> Give only 1V on the shorted output line — the shorted component heats up
+                </div>
+              </div>
+            </div>
+
+            <!-- FIND THE SHORTED COMPONENT -->
+            <div class="part-card">
+              <div class="part-icon">
+                <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="42" cy="26" r="16" fill="#0e1720" stroke="#39ff88" stroke-width="2"/>
+                  <line x1="54" y1="38" x2="70" y2="52" stroke="#39ff88" stroke-width="4"/>
+                  <polygon points="44,18 37,27 43,27 40,35 49,25 43,25" fill="#ff5470"/>
+                </svg>
+              </div>
+              <div class="part-info">
+                <div class="part-name">🔍 Finding the shorted component</div>
+                <div class="part-desc">Once you know which line is shorted, inject a small voltage into that line and find which component heats up — that heating part is the faulty one.</div>
+                <div class="part-tamil"><b>🧪 Voltage injection method:</b><br>
+                  • <b>Setup:</b> Set the DC power supply with a current limit (1A). Voltage: 4V for a primary short (battery/VBAT line), 1V for a secondary short (output line)<br>
+                  • <b>Inject:</b> Connect the minus probe to board ground and the plus probe to the shorted line<br>
+                  • <b>Find:</b> Use rosin smoke / freeze spray / a thermal camera — the component that heats up is the faulty one<br>
+                  • <b>Fix:</b> Remove that component and replace it with a new part of the same value
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="note">
+            ⚠️ Disconnect the battery before every test. Use only the correct voltage — 4V for a primary short, 1V for a secondary short. More voltage can damage the board. Short repair needs soldering experience, so work carefully.
+          </div>
+
         </div>
       </div>
     </div>
