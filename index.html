@@ -614,9 +614,9 @@
                 <div class="part-tamil"><b>🔎 How to check (multimeter):</b><br>
                   • <b>Setup:</b> Disconnect the battery and set the multimeter to continuity (buzzer) mode<br>
                   • <b>Test:</b> Black probe on board ground (GND), red probe on the battery connector +ve pin<br>
-                  • <b>Result:</b> A beep (0 ohm / near 0) means there is a primary short on the VBAT line<br>
-                  • <b>Confirm:</b> Reverse the probes and test again — a beep in both directions confirms the short<br>
-                  • <b>Inject:</b> Give 4V on the battery (VBAT) line with the battery disconnected — the shorted component heats up
+                  • <b>Result:</b> A beep (0 ohm / near 0) can be a clue to a primary short on the VBAT line. Confirm with the model's reference before calling it a fault<br>
+                  • <b>Confirm:</b> Reverse the probes and test again — a beep in both directions strengthens the clue<br>
+                  • <b>Inject:</b> Only after you know the real rating of this phone's battery (VBAT) line, a current-limited supply can be used on that line with the battery disconnected. A part that heats up is a clue to the short, not proof of the faulty part
                 </div>
               </div>
             </div>
@@ -641,9 +641,9 @@
                 <div class="part-use"><strong>Symptoms:</strong> Restart loop — logo shows, then the phone restarts repeatedly. On a DC supply, current jumps high as soon as the power button is pressed. The PMIC or CPU area can heat up.</div>
                 <div class="part-tamil"><b>🔎 How to check:</b><br>
                   • <b>Step 1:</b> First confirm there is no short at the battery connector (rule out a primary short)<br>
-                  • <b>Step 2:</b> Check the coils (inductors) near the PMIC in diode mode — each one is an output line<br>
-                  • <b>Result:</b> If any line reads 0 / beeps, there is a secondary short on that output line<br>
-                  • <b>Inject:</b> Give only 1V on the shorted output line — the shorted component heats up
+                  • <b>Step 2:</b> Identify the relevant PMIC output rails from the schematic or boardview and check those in diode mode. Do not assume every coil is an output line<br>
+                  • <b>Result:</b> A very low reading or a beep on a line can be a clue to a secondary short. Some low-voltage rails normally read low resistance, so confirm with the model's schematic or a known-good board before calling it a fault<br>
+                  • <b>Inject:</b> Only after you know the real rating of the shorted output line, a current-limited supply at a voltage safe for that line can be used. A part that heats up is a clue to the short, not proof of the faulty part
                 </div>
               </div>
             </div>
@@ -659,20 +659,37 @@
               </div>
               <div class="part-info">
                 <div class="part-name">🔍 Finding the shorted component</div>
-                <div class="part-desc">Once you know which line is shorted, inject a small voltage into that line and find which component heats up — that heating part is the faulty one.</div>
-                <div class="part-tamil"><b>🧪 Voltage injection method:</b><br>
-                  • <b>Setup:</b> Set the DC power supply with a current limit (1A). Voltage: 4V for a primary short (battery/VBAT line), 1V for a secondary short (output line)<br>
-                  • <b>Inject:</b> Connect the minus probe to board ground and the plus probe to the shorted line<br>
-                  • <b>Find:</b> Use rosin smoke / freeze spray / a thermal camera — the component that heats up is the faulty one<br>
-                  • <b>Fix:</b> Remove that component and replace it with a new part of the same value
+                <div class="part-desc">Once you know which line is shorted, a current-limited supply on that line can help you find where the short is. A part that heats up is a clue, not proof. Confirm before removing anything.</div>
+                <div class="part-tamil"><b>🧪 Voltage injection method (clue only):</b><br>
+                  • <b>Know the line:</b> Identify the actual shorted line and its normal voltage from the schematic or boardview. Do not choose the voltage from the words input or output alone<br>
+                  • <b>Limits:</b> Use a voltage and a current limit that are safe for that line and phone model. The settings described for this example were 4V (input) and 1V (output); these are not verified limits for another rail or phone<br>
+                  • <b>Inject:</b> Connect minus to board ground and plus to the shorted line, with the battery, USB and any external power source disconnected<br>
+                  • <b>Look:</b> Rosin smoke, freeze spray or a thermal camera can show a part that warms. A warm part is a clue, not proof, because a powered IC can also warm up<br>
+                  • <b>Next:</b> Confirm with measurements before replacing any part
                 </div>
               </div>
             </div>
 
           </div>
 
+          <div class="note" style="margin-top:12px;">
+            🔎 <b>Current clue:</b> On a DC supply at the battery connector, high current as soon as the board is connected, before the power button, may suggest a short on the input (main, battery-side) line. Current that is normal until the power button is pressed and then rises sharply may suggest a short on an output (switched-on) line. This is a clue, not proof of the fault. It does not name the exact line or part. Current values differ between phones, so no single number works for every board. Before injecting, identify the actual line and use a voltage and current limit that are safe for that line and phone model.
+          </div>
+
+          <div class="note" style="margin-top:12px;">
+            🗣️ <b>Thanglish:</b> DC supply-la battery connector-la current paarkkum bodhu, board connect pannadhum, power button press pannum munnadiye adhiga current vandha, input (main, battery-side) line-la short irukkalam nu kaattalam. Power button varaikkum normal-a irundhu, press pannina piragu current romba aerina, output (apram on aagura) line-la short irukkalam nu kaattalam. Idhu oru clue mattum, fault confirm illa. Exact line illa part-a sollaadhu. Phone-ku phone current maarum, so ella board-kum oru number work aagaadhu. Injection pannum munnadi actual line-a kandupidichu, andha line-kum phone model-kum safe-aana voltage, current limit use pannunga.
+          </div>
+
           <div class="note">
-            ⚠️ Disconnect the battery before every test. Use only the correct voltage — 4V for a primary short, 1V for a secondary short. More voltage can damage the board. Short repair needs soldering experience, so work carefully.
+            🔎 <b>Extra diagnostic clue:</b> in the method described here, a reading above 100 mA at 1V prompts further investigation; it is not a universal test that confirms a short. Before continuity checks, disconnect the DC supply, battery and USB, and ensure the board is de-energized. Check the suspected capacitor's pads against ground and interpret the readings using the schematic or a known-good board. A continuity beep cannot distinguish a direct ground connection from a short through other components. The fault may be in that capacitor, another component on the connected line, or the IC. Do not remove a capacitor based on current draw or a beep alone. Voltage injection requires a known rail and verified safe voltage and current limits; 1V is not safe for every rail.
+          </div>
+
+          <div class="note" style="margin-top:12px;">
+            🗣️ <b>Thanglish:</b> Inga sollura method-la, 1V kudukkum bodhu 100 mA-ku mela current edutha, adhu innum konjam check panna sollura oru signal mattum. Idhu short irukku nu confirm panra universal test illa. Continuity check pannum munnadi, DC supply, battery, USB ellaathayum disconnect panni, board-la power illa nu ensure pannunga. Suspected capacitor-oda pads-a ground-oda check pannunga; reading-a schematic illa known-good board vachu paarthu purinjukkunga. Continuity beep, direct ground-a illa vera components vazhiya irukkura short-a nu pirichu kaattaadhu. Fault andha capacitor-la, same line-la connect aana vera component-la, illa IC-la irukkalam. Current draw-a illa beep-a mattum paarthu capacitor-a remove pannaadheenga. Voltage injection-ku known rail venum, voltage-um current limit-um safe nu verify pannanum; 1V ellaa rail-kum safe illa.
+          </div>
+
+          <div class="note">
+            ⚠️ Disconnect the battery before injecting into a line. Use a voltage and current limit that are safe for that line and phone model. A wrong voltage can damage the board. Short repair needs soldering experience, so work carefully.
           </div>
 
         </div>
