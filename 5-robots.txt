@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mobile-tech-tamil.tamilcraftersstudio.in/sitemap.xml
